@@ -23,7 +23,7 @@ def IsQuitting():
             
     return False
    
-# Create the fish.  The ones later in the list are draw later and thus
+# Create the fish.  The ones later in the list are drawn later and thus
 # look like they are closer than the earlier ones.
 from fish.clownfish import ClownFish
 from fish.suckerfish import SuckerFish
@@ -33,28 +33,26 @@ all_fish = [ClownFish(), ClownFish(), SuckerFish()]
 clock = pygame.time.Clock() 
 while True:
     
-    # Slow down the loop so that we display 60 frames per second (this is like a movie)
+    # Slow down the loop so that we go through it 30 times per second, which means we show
+    # 30 frames per second (FPS).  This is also about how many FPS most movies use.
     tick_time = clock.tick(30)
     
-    # Set the window title with some status information
+    # Set the window title with some status information 
     pygame.display.set_caption("Fishtank. FPS: %.2f FISH: %i" % (clock.get_fps(), len(all_fish)))
 
     # Check if quitting
     if IsQuitting():
         break
 
-    # Move the fish
+    # Move each fish
     for fish in all_fish:
         fish.move()
         
-    # Draw the background image
+    # Draw the background image, each fish, and our silly text in that order (things
+    # draw last end up in front)
     screen.blit(background, (0,0))
-    
-    # Draw the fish
     for fish in all_fish:
         fish.draw(screen)
-        
-    # Draw the silly text
     screen.blit(myFont.render("Hello Fishies!", 0, (255,255,200)), (20,20))
 
     # Copy everything to the screen
