@@ -53,6 +53,8 @@ The clown fish and background were found by google image search.  If you
 plan to distribute this code, you may want to replace those.  We will add 
 attribution if we can find the source again.
 
+The french angel fish is from http://saltwaterseacreaturesdirect.com/
+
 The sucker fish and snail (currently unused) were created by Ajanta.
 
 Contact
