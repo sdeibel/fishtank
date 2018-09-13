@@ -4,8 +4,10 @@ import time
 
 class SuckerFish:
     
-    def __init__(self):
+    def __init__(self, screen):
         """Create a clown fish"""
+
+        self.screen = screen
         
         # We have four images depending on direction
         self.fish_left_up = pygame.image.load("fish/sucker-fish-left-up.png").convert_alpha()

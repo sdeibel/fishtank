@@ -27,7 +27,11 @@ def IsQuitting():
 # look like they are closer than the earlier ones.
 from fish.clownfish import ClownFish
 from fish.suckerfish import SuckerFish
-all_fish = [ClownFish(), ClownFish(), SuckerFish()]
+from fish.frenchangelfish import FrenchAngelFish
+all_fish = [ClownFish(screen), ClownFish(screen), FrenchAngelFish(screen)]
+for i in range(0, 10):
+    all_fish.append(ClownFish(screen))
+all_fish.append(SuckerFish(screen))
 
 # Loop forever until the user quits, moving and drawing the fish
 clock = pygame.time.Clock() 

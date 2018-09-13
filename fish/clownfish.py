@@ -5,8 +5,10 @@ import time
 class ClownFish:
     """The clown fish"""
     
-    def __init__(self):
+    def __init__(self, screen):
         """Create a clown fish"""
+
+        self.screen = screen
         
         # We have two images, one facing left and one facing right
         self.fish_left = pygame.image.load("fish/clown-fish-left.png").convert_alpha()
@@ -16,10 +18,12 @@ class ClownFish:
         # Start out in the middle bottom
         self.x = random.randint(200, 1000)
         self.y = 500
+        self.z = 1.0
 
         # Start out moving a little to the right
         self.x_speed = random.randint(1, 3)
         self.y_speed = 0
+        self.z_speed = 0
 
         # Keep track of times for last direction and speed changes so fish moves more smoothly
         self.last_direction_change = time.time()
@@ -33,6 +37,14 @@ class ClownFish:
         # Move the fish according to its speed and direction
         self.x += self.x_speed
         self.y += self.y_speed
+        self.z += self.z_speed
+        
+        if self.z > 2.0:
+            self.z = 2.0
+            self.z_speed = 0
+        elif self.z < 0.0:
+            self.z = 0.0
+            self.z_speed = 0
 
         # Fish changes direction left to right once in a while, at most every 3 seconds
         if time.time() > self.last_direction_change + 3.0:
@@ -91,6 +103,12 @@ class ClownFish:
             else:
                 self.x_speed -= 1
             self.last_slow_down = time.time()
+            
+        r = random.randint(0, 100)
+        if r == 1:
+            self.z_speed += 0.01
+        elif r == 2:
+            self.z_speed -= 0.01
         
         # Bounce off the edges by reversing direction
         if self.x > 1050 and self.x_speed > 0:
@@ -110,4 +128,8 @@ class ClownFish:
             
     def draw(self, screen):
         """Draw the clown fish in its current position"""
-        screen.blit(self.current_fish, (self.x, self.y))
+        w, h = self.current_fish.get_size()
+        w = int((w * 0.10) * self.z + w)
+        h = int((h * 0.10) * self.z + h)
+        fish = pygame.transform.scale(self.current_fish, (w, h))
+        screen.blit(fish, (self.x, self.y))
